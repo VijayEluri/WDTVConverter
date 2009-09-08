@@ -227,7 +227,7 @@ public class WDTVUtils {
                         new File(Constants.tempDir,
                         id + ".ac3").getAbsolutePath() + "\"";
                 toDelete.add(new File(Constants.tempDir, id + ".ac3"));
-            } else if (codec.equals("A_AC3")) {
+            } else {
                 copy += id + ",";
                 copyCount++;
             }
