@@ -404,6 +404,7 @@ public class WDTVConverterView extends FrameView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sourceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceButtonActionPerformed
+        fileChooser.setSelectedFile(new File(""));
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setFileFilter(MKV_FILTER);
         fileChooser.setFileFilter(AVI_FILTER);
@@ -420,6 +421,7 @@ public class WDTVConverterView extends FrameView {
     }//GEN-LAST:event_sourceButtonActionPerformed
 
     private void destinationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinationButtonActionPerformed
+        fileChooser.setSelectedFile(new File(""));
         if (currentSource == null) {
             JOptionPane.showMessageDialog(this.getFrame(),
                     "No source selected.",
@@ -455,6 +457,7 @@ public class WDTVConverterView extends FrameView {
     }//GEN-LAST:event_destinationButtonActionPerformed
 
     private void subtitleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subtitleButtonActionPerformed
+        fileChooser.setSelectedFile(new File(""));
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setFileFilter(SRT_FILTER);
         int returnVal = fileChooser.showOpenDialog(this.getFrame());
