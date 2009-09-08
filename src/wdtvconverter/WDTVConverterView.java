@@ -406,6 +406,7 @@ public class WDTVConverterView extends FrameView {
     private void sourceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceButtonActionPerformed
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setFileFilter(MKV_FILTER);
+        fileChooser.setFileFilter(AVI_FILTER);
         int returnVal = fileChooser.showOpenDialog(this.getFrame());
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -414,18 +415,38 @@ public class WDTVConverterView extends FrameView {
         }
 
         fileChooser.removeChoosableFileFilter(MKV_FILTER);
+        fileChooser.removeChoosableFileFilter(AVI_FILTER);
         fileChooser.setAcceptAllFileFilterUsed(true);
     }//GEN-LAST:event_sourceButtonActionPerformed
 
     private void destinationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinationButtonActionPerformed
+        if (currentSource == null) {
+            JOptionPane.showMessageDialog(this.getFrame(),
+                    "No source selected.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String dir = currentSource.getParentFile().getAbsolutePath();
+        String name = currentSource.getName();
+        int index = name.lastIndexOf(".");
+        String realName = (index >= 0) ? name.substring(0, index) : name;
         fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setSelectedFile(new File(dir + "\\" + realName + ".mkv"));
         int prevType = fileChooser.getDialogType();
         fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
         fileChooser.setFileFilter(MKV_FILTER);
         int returnVal = fileChooser.showOpenDialog(this.getFrame());
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            currentDestination = fileChooser.getSelectedFile();
+            File f = fileChooser.getSelectedFile();
+            name = f.getName();
+            index = name.lastIndexOf(".");
+            String ext = (index >= 0) ? name.substring(index + 1) : "";
+            if (ext.isEmpty() || ext.compareToIgnoreCase("mkv") != 0) {
+                String apath = f.getAbsolutePath();
+                currentDestination = new File(apath +
+                   ((index == name.length() - 1) ? "" : ".") + "mkv");
+            } else currentDestination = f;
             destinationTextField.setText(currentDestination.getAbsolutePath());
         }
         fileChooser.removeChoosableFileFilter(MKV_FILTER);
@@ -582,6 +603,8 @@ public class WDTVConverterView extends FrameView {
             FileNameExtensionFilter("Subtitles (.srt)", "srt");
     private static final FileFilter MKV_FILTER = new
             FileNameExtensionFilter("Matroska (.mkv)", "mkv");
+    private static final FileFilter AVI_FILTER = new
+            FileNameExtensionFilter("AVI (.avi)", "avi");
 
     private boolean hasSubtitle(File f) {
         DefaultTableModel dtm = (DefaultTableModel) subsTable.getModel();

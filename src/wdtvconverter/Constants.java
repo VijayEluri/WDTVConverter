@@ -55,7 +55,6 @@ public class Constants {
             }
             return result;
         } catch(FileNotFoundException e) {
-            e.printStackTrace();
             return new HashMap<String, Language>();
         }
     }

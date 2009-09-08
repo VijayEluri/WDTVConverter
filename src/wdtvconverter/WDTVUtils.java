@@ -23,6 +23,61 @@ public class WDTVUtils {
 
         long start = System.currentTimeMillis();
 
+        List<File> toDelete = new LinkedList<File>();
+        
+        int extIndex = source.getName().lastIndexOf(".");
+
+        String ext = (extIndex >= 0) ?
+            source.getName().substring(extIndex + 1) : "";
+
+        if (ext.compareToIgnoreCase("avi") == 0) {
+            String path = (new File(
+            WDTVConverterApp.APP_LOCATION.getFile()).getParent() +
+            "\\mkvtoolnix\\mkvmerge.exe").replace("%20", " ");
+
+            File outFile = new File(Constants.tempDir, "tmp1.mkv");
+            String cmd = path + " -o " + "\"" + outFile.getAbsolutePath() +
+                            "\"" + " " + "\"" + source.getAbsolutePath() + "\"";
+
+            //System.out.println(cmd);
+
+            Process proc = WDTVConverterApp.APP_RUNTIME.exec(cmd);
+            InputStream inputstream = proc.getInputStream();
+            InputStreamReader inputstreamreader =
+                    new InputStreamReader(inputstream);
+            BufferedReader bufferedreader =
+                    new BufferedReader(inputstreamreader);
+
+            // read the ls output
+
+            String step0 = "Step 0/4 (Converting AVI to MKV)\n";
+            String mkvmergeOut = "";
+            String progress = "";
+
+            String line = null;
+            while ((line = bufferedreader.readLine()) != null) {
+                line = line.trim();
+                if (line.length() <= 0) continue;
+                if (line.contains("Progress")) progress = line + "\n";
+                else mkvmergeOut += line + "\n";
+
+                output.setText(step0 + mkvmergeOut + progress);
+            }
+
+            // check for ls failure
+
+            try {
+                if (proc.waitFor() != 0) {
+                    System.err.println("exit value = " + proc.exitValue());
+                } else {
+                    source = outFile;
+                    toDelete.add(outFile);
+                }
+            } catch (InterruptedException e) {
+                System.err.println(e);
+            }
+        }
+
         String mkvinfoOut = "";
         String mkvextractOut = "";
         String eac3toOut = "";
@@ -214,7 +269,6 @@ public class WDTVUtils {
         String copy = " -a ";
         String dts = "";
         int copyCount = 0;
-        List<File> toDelete = new LinkedList<File>();
         for (Node a : audios) {
             String codec = a.get("Codec ID").get(0).getValue();
             String id = a.get("Track number").get(0).getValue();
@@ -292,8 +346,11 @@ public class WDTVUtils {
             String parent = f.getParentFile().getAbsolutePath();
             String name = f.getName();
             int index = name.lastIndexOf(".");
-            if (index >= 0) name = name.substring(0, index);
-            new File(parent, name + " - Log.txt").delete();
+            String fileExt = (index >= 0) ? name.substring(index + 1) : "";
+            if (fileExt.compareToIgnoreCase("ac3") == 0) {
+                if (index >= 0) name = name.substring(0, index);
+                new File(parent, name + " - Log.txt").delete();
+            }
         }
 
         long end = System.currentTimeMillis();
