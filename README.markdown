@@ -25,10 +25,10 @@ Just open the program filled under the program list and have fun :P
 
 Developed By
 ============
-* Tiago Santos - <camon.pt@gmail.com>
+* Tiago Santos - <tvcsantos@gmail.com>
 
 Git repository located at
-[github.com/camon/WDTVConverter/](http://github.com/camon/WDTVConverter/)
+[github.com/tvcsantos/WDTVConverter/](http://github.com/tvcsantos/WDTVConverter/)
 
 
 License
