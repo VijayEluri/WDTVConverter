@@ -99,7 +99,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Component id="imageLabel" alignment="0" pref="205" max="32767" attributes="1"/>
       </Group>
@@ -120,6 +120,9 @@
           <FontInfo relative="true">
             <Font bold="true" component="appTitleLabel" property="font" relativeSize="true" size="4"/>
           </FontInfo>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="pt/com/santos/wdtvconverter/resources/WDTVConverterApp.properties" key="Application.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="appTitleLabel" noResource="true"/>
       </Properties>
