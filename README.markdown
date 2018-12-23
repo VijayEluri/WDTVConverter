@@ -29,7 +29,7 @@ Developed By
 
 Build
 ============
-Depends on my following repositories:
+Dependencies to my repositories:
 * https://github.com/tvcsantos/javautils
 * https://github.com/tvcsantos/javafwutils
 * https://github.com/tvcsantos/javaprogramutils
