@@ -30,9 +30,9 @@ Developed By
 Build
 ============
 Dependencies to my repositories:
-* https://github.com/tvcsantos/javautils
-* https://github.com/tvcsantos/javafwutils
-* https://github.com/tvcsantos/javaprogramutils
+* https://github.com/tvcsantos/javautils/tree/v1.0
+* https://github.com/tvcsantos/javafwutils/tree/v1.0
+* https://github.com/tvcsantos/javaprogramutils/tree/v1.0
 
 
 License
