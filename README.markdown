@@ -27,6 +27,14 @@ Developed By
 ============
 * Tiago Santos - <tvcsantos@gmail.com>
 
+Build
+============
+Depends on my following repositories:
+https://github.com/tvcsantos/javautils
+https://github.com/tvcsantos/javafwutils
+https://github.com/tvcsantos/javaprogramutils
+
+
 License
 =======
     WD TV Converter - Simple Java Swing application to convert DTS
